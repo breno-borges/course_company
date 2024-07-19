@@ -7,6 +7,6 @@ public class NameAndCategoryFoundException extends RuntimeException {
      * categoria
      */
     public NameAndCategoryFoundException() {
-        super("Categoria ativa já existente!");
+        super("Curso e categoria já existentes!");
     }
 }
