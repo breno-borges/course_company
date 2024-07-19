@@ -13,7 +13,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable()) // Desabilitando pois a configuração será manual.
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/cursos/").permitAll(); // Liberar a rota.
+                    auth.requestMatchers("/cursos/**").permitAll(); // Liberar a rota.
                     auth.anyRequest().authenticated(); // Travar todas as demais rotas
                 });
         return http.build();
