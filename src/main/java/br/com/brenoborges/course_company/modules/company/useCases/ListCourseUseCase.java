@@ -25,6 +25,7 @@ public class ListCourseUseCase {
                         .id(course.getId())
                         .name(course.getName())
                         .category(course.getCategory())
+                        .active(course.getActive())
                         .createdAt(course.getCreatedAt())
                         .updatedAt(course.getUpdatedAt())
                         .build())

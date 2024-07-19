@@ -17,7 +17,7 @@ public class CourseDTO {
     private UUID id;
     private String name;
     private String category;
-    private boolean active;
+    private byte active;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

@@ -27,8 +27,8 @@ public class CourseEntity {
     private String name;
     private String category;
 
-    // Se o curso estiver ativo recebe true, se estiver inativo recebe false.
-    private boolean active;
+    // Se o curso estiver ativo recebe 1, se estiver inativo recebe 0.
+    private byte active;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
