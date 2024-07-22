@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import br.com.brenoborges.course_company.modules.company.dto.CourseDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,4 +36,12 @@ public class CourseEntity {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    // Construtor que recebe os dados do body que vão para a DTO e seta eles nas
+    // variáveis da entidade.
+    public CourseEntity(CourseDTO courseDTO) {
+        this.name = courseDTO.name();
+        this.category = courseDTO.category();
+        this.active = courseDTO.active();
+    }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.brenoborges.course_company.modules.company.dto.CourseDTO;
 import br.com.brenoborges.course_company.modules.company.entities.CourseEntity;
 import br.com.brenoborges.course_company.modules.company.useCases.CreateCourseUseCase;
 import br.com.brenoborges.course_company.modules.company.useCases.DeleteCourseUseCase;
@@ -32,9 +33,10 @@ public class CourseController {
     private DeleteCourseUseCase deleteCourseUseCase;
 
     @PostMapping("/")
-    public ResponseEntity<Object> create(@Valid @RequestBody CourseEntity courseEntity) {
+    public ResponseEntity<Object> create(@Valid @RequestBody CourseDTO courseDTO) {
+        CourseEntity newCourse = new CourseEntity(courseDTO);
         try {
-            var result = this.createCourseUseCase.execute(courseEntity);
+            var result = this.createCourseUseCase.execute(newCourse);
             return ResponseEntity.ok().body(result); // Exibe o resultado inserido no body
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
