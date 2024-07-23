@@ -58,7 +58,7 @@ public class CourseController {
         }
     }
 
-    @DeleteMapping("/:{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable UUID id) {
         try {
             this.deleteCourseUseCase.execute(id);
@@ -68,7 +68,7 @@ public class CourseController {
         }
     }
 
-    @PutMapping("/:{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable UUID id, @Valid @RequestBody CourseDTO courseDTO) {
         try {
             var result = this.updateCourseUseCase.put(id, courseDTO);
