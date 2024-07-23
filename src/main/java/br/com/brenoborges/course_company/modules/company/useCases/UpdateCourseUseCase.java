@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.brenoborges.course_company.exceptions.IdNotFoundException;
 import br.com.brenoborges.course_company.exceptions.NameAndCategoryFoundException;
+import br.com.brenoborges.course_company.modules.company.dto.CourseActiveDTO;
 import br.com.brenoborges.course_company.modules.company.dto.CourseDTO;
 import br.com.brenoborges.course_company.modules.company.entities.CourseEntity;
 import br.com.brenoborges.course_company.modules.company.repositories.CourseRepository;
@@ -35,6 +36,16 @@ public class UpdateCourseUseCase {
         courseEntity.setCategory(courseDTO.category());
         courseEntity.setActive(courseDTO.active());
         courseEntity.setCreatedAt(courseEntity.getCreatedAt()); // Mantém o CreatedAt original.
+        return this.courseRepository.save(courseEntity);
+    }
+
+    public CourseEntity patch(UUID id, CourseActiveDTO courseActiveDTO) {
+        // Verifica a validade do Id
+        CourseEntity courseEntity = this.courseRepository.findById(id)
+                .orElseThrow(() -> new IdNotFoundException());
+
+        courseEntity.setActive(courseActiveDTO.active());
+
         return this.courseRepository.save(courseEntity);
     }
 }
