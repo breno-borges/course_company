@@ -17,7 +17,7 @@ public class DeleteCourseUseCase {
     public void execute(UUID id) {
         this.courseRepository.findById(id)
                 // Verifica se o id existe, se não existe, lança mensagem de erro.
-                .orElseThrow(IdNotFoundException::new);
+                .orElseThrow(() -> new IdNotFoundException());
 
         this.courseRepository.deleteById(id); // Remove a partir do Id passado ao chamar o método.
     }

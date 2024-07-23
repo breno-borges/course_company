@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import br.com.brenoborges.course_company.modules.company.entities.CourseEntity;
 import br.com.brenoborges.course_company.modules.company.useCases.CreateCourseUseCase;
 import br.com.brenoborges.course_company.modules.company.useCases.DeleteCourseUseCase;
 import br.com.brenoborges.course_company.modules.company.useCases.ListCourseUseCase;
+import br.com.brenoborges.course_company.modules.company.useCases.UpdateCourseUseCase;
 import jakarta.validation.Valid;
 
 @RestController
@@ -32,9 +34,12 @@ public class CourseController {
     @Autowired
     private DeleteCourseUseCase deleteCourseUseCase;
 
+    @Autowired
+    private UpdateCourseUseCase updateCourseUseCase;
+
     @PostMapping("/")
     public ResponseEntity<Object> create(@Valid @RequestBody CourseDTO courseDTO) {
-        CourseEntity newCourse = new CourseEntity(courseDTO);
+        CourseEntity newCourse = new CourseEntity(courseDTO); // Pego os dados da DTO e converto na entidade.
         try {
             var result = this.createCourseUseCase.execute(newCourse);
             return ResponseEntity.ok().body(result); // Exibe o resultado inserido no body
@@ -62,4 +67,15 @@ public class CourseController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PutMapping("/:{id}")
+    public ResponseEntity<Object> update(@PathVariable UUID id, @Valid @RequestBody CourseDTO courseDTO) {
+        try {
+            var result = this.updateCourseUseCase.put(id, courseDTO);
+            return ResponseEntity.ok().body(result); // Exibe o resultado atualizado no body
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }
